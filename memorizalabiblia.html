@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Tarjetas de Versículos Bíblicos</title>
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #card {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .verse-text {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .citation {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .text {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-number {
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tarjetas de Versículos Bíblicos: El Perdón</h1>
+        <div id="card">
+            <h2 id="title"></h2>
+            <p id="citation" class="citation"></p>
+            <p id="verse" class="verse-text"></p>
+            <p id="observation-label" class="label"></p>
+            <p id="observation" class="text"></p>
+            <p id="interpretation-label" class="label"></p>
+            <p id="interpretation" class="text"></p>
+            <p id="application-label" class="label"></p>
+            <p id="application" class="text"></p>
+            <p id="affirmation-label" class="label"></p>
+            <p id="affirmation" class="text"></p>
+        </div>
+        <div class="navigation">
+            <button id="prevBtn">Anterior</button>
+            <span id="cardNumber" class="card-number"></span>
+            <button id="nextBtn">Siguiente</button>
+        </div>
+    </div>
+    <script>
+        const cards = [
+            {
+                title: "Perdón y Amor",
+                verse: "\"Porque si perdonáis a los hombres sus ofensas, os perdonará también a vosotros vuestro Padre celestial.\"",
+                citation: "Mateo 6:14 RV1960",
+                observation: "¿Qué promete Dios si perdonamos a otros?",
+                interpretation: "¿Por qué es importante perdonar a los demás?",
+                application: "¿Cómo puedes aplicar esta enseñanza en tu vida hoy?",
+                affirmation: "Yo perdono a los demás como Dios me ha perdonado."
+            },
+            {
+                title: "Perdón y Misericordia",
+                verse: "\"Antes sed benignos unos con otros, misericordiosos, perdonándoos unos a otros, como Dios también os perdonó a vosotros en Cristo.\"",
+                citation: "Efesios 4:32 RV1960",
+                observation: "¿Cómo debemos tratarnos unos a otros?",
+                interpretation: "¿Qué significa ser misericordioso y perdonar como Dios lo hace?",
+                application: "¿A quién necesitas mostrarle misericordia y perdón?",
+                affirmation: "Yo soy misericordioso y perdono como Dios me perdonó en Cristo."
+            },
+            {
+                title: "Perdón y Compasión",
+                verse: "\"Soportándoos unos a otros, y perdonándoos unos a otros si alguno tuviere queja contra otro. De la manera que Cristo os perdonó, así también hacedlo vosotros.\"",
+                citation: "Colosenses 3:13 RV1960",
+                observation: "¿Qué debemos hacer si tenemos queja contra alguien?",
+                interpretation: "¿Cómo nos sirve de ejemplo el perdón de Cristo?",
+                application: "¿Cómo puedes mostrar perdón y compasión hoy?",
+                affirmation: "Yo perdono y tengo compasión como Cristo me perdonó."
+            },
+            {
+                title: "Perdón y Oración",
+                verse: "\"Y cuando estéis orando, perdonad, si tenéis algo contra alguno, para que también vuestro Padre que está en los cielos os perdone a vosotros vuestras ofensas.\"",
+                citation: "Marcos 11:25 RV1960",
+                observation: "¿Qué debemos hacer cuando estamos orando?",
+                interpretation: "¿Por qué es importante perdonar mientras oramos?",
+                application: "¿A quién necesitas perdonar hoy en oración?",
+                affirmation: "Yo perdono mientras oro, como Dios me perdona."
+            },
+            {
+                title: "Perdón y Confesión",
+                verse: "\"Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados, y limpiarnos de toda maldad.\"",
+                citation: "1 Juan 1:9 RV1960",
+                observation: "¿Qué promete Dios si confesamos nuestros pecados?",
+                interpretation: "¿Cómo demuestra Dios su justicia y fidelidad?",
+                application: "¿Cómo puedes vivir una vida de confesión y perdón?",
+                affirmation: "Yo confieso mis pecados y recibo el perdón de Dios."
+            },
+            {
+                title: "Perdón y Redención",
+                verse: "\"En quien tenemos redención por su sangre, el perdón de pecados según las riquezas de su gracia.\"",
+                citation: "Efesios 1:7 RV1960",
+                observation: "¿Qué tenemos en Cristo?",
+                interpretation: "¿Qué significa ser redimido por la sangre de Cristo?",
+                application: "¿Cómo puedes vivir agradecido por el perdón de tus pecados?",
+                affirmation: "Yo soy redimido y perdonado por la gracia de Cristo."
+            },
+            {
+                title: "Perdón y Sanidad",
+                verse: "\"Bendice, alma mía, a Jehová, y no olvides ninguno de sus beneficios. Él es quien perdona todas tus iniquidades, el que sana todas tus dolencias.\"",
+                citation: "Salmos 103:2-3 RV1960",
+                observation: "¿Qué hace Dios por nosotros según este versículo?",
+                interpretation: "¿Cómo están relacionados el perdón y la sanidad?",
+                application: "¿Cómo puedes recordar y agradecer los beneficios de Dios?",
+                affirmation: "Yo recuerdo que Dios perdona mis iniquidades y sana mis dolencias."
+            },
+            {
+                title: "Perdón y Compasión",
+                verse: "\"Sé tú pronto para escuchar, tardo para hablar, tardo para airarte; porque la ira del hombre no obra la justicia de Dios.\"",
+                citation: "Santiago 1:19-20 RV1960",
+                observation: "¿Qué actitudes debemos tener según Santiago?",
+                interpretation: "¿Por qué es importante ser tardo para airarse?",
+                application: "¿Cómo puedes practicar estas actitudes hoy?",
+                affirmation: "Yo soy tardo para airarme y busco la justicia de Dios."
+            },
+            {
+                title: "Perdón y Amor Incondicional",
+                verse: "\"El que encubre sus pecados no prosperará; Mas el que los confiesa y se aparta alcanzará misericordia.\"",
+                citation: "Proverbios 28:13 RV1960",
+                observation: "¿Qué sucede si encubrimos nuestros pecados?",
+                interpretation: "¿Cómo alcanzamos misericordia según este versículo?",
+                application: "¿Cómo puedes vivir una vida transparente y sincera?",
+                affirmation: "Yo confieso mis pecados y recibo la misericordia de Dios."
+            },
+            {
+                title: "Perdón y Vida Nueva",
+                verse: "\"Y a vosotros, estando muertos en pecados y en la incircuncisión de vuestra carne, os dio vida juntamente con él, perdonándoos todos los pecados.\"",
+                citation: "Colosenses 2:13 RV1960",
+                observation: "¿Qué hizo Dios por nosotros cuando estábamos muertos en pecados?",
+                interpretation: "¿Cómo describe este versículo la nueva vida en Cristo?",
+                application: "¿Cómo puedes vivir en la realidad de que todos tus pecados son perdonados?",
+                affirmation: "Dios me ha dado vida y me ha perdonado todos mis pecados."
+            }
+        ];
+
+        let currentCardIndex = 0;
+
+        function showCard(index) {
+            const card = cards[index];
+            document.getElementById('title').textContent = card.title;
+            document.getElementById('verse').textContent = card.verse;
+            document.getElementById('citation').textContent = card.citation;
+            document.getElementById('observation-label').textContent = "Observación:";
+            document.getElementById('observation').textContent = card.observation;
+            document.getElementById('interpretation-label').textContent = "Interpretación:";
+            document.getElementById('interpretation').textContent = card.interpretation;
+            document.getElementById('application-label').textContent = "Aplicación:";
+            document.getElementById('application').textContent = card.application;
+            document.getElementById('affirmation-label').textContent = "Afirmación:";
+            document.getElementById('affirmation').textContent = card.affirmation;
+            document.getElementById('cardNumber').textContent = `Tarj. ${index + 1}`;
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                showCard(currentCardIndex);
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentCardIndex < cards.length - 1) {
+                currentCardIndex++;
+                showCard(currentCardIndex);
+            }
+        });
+
+        // Mostrar la primera tarjeta al cargar la página
+        showCard(currentCardIndex);
+    </script>
+</body>
+</html>
